@@ -22,6 +22,8 @@ app.get("/recipe", Handle.getRecipe);
 
 app.post("/recipe", Handle.addRecipe);
 
+app.delete("/recipe/:id", Handle.deleteRecipe);
+
 
 
 app.listen(PORT, () => console.log(`listening on ${PORT}`));

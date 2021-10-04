@@ -30,4 +30,16 @@ const addRecipe = async (req, res) => {
   }
 }
 
-module.exports = { getRecipe, addRecipe };
+const deleteRecipe = async (req, res) => {
+  const id = req.params.id;
+  const email = req.query.email;
+
+  try {
+    await Recipe.findByIdAndDelete(id);
+    res.status(204).send("Recipe deleted");
+  } catch (error) {
+    res.status(404).send("Error, Cannot delete Recipe with ID: " + id);
+  }
+};
+
+module.exports = { getRecipe, addRecipe, deleteRecipe };
