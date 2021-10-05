@@ -23,6 +23,7 @@ app.get('/recipe', Handle.getShortList);
 app.get('/recipe/:id', Handle.getFullRecipe)
 
 app.post("/recipe", Handle.addRecipe);
+app.post("/favorite/:id", Handle.addFavRecipe);
 
 app.delete("/recipe/:id", Handle.deleteRecipe);
 
