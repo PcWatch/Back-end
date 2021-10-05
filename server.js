@@ -18,7 +18,9 @@ app.get("/test", (req, res) => {
   res.send("the server is serving");
 });
 
-app.get("/recipe", Handle.getRecipe);
+app.get("/favorite", Handle.getFavRecipe);
+app.get('/recipe', Handle.getShortList);
+app.get('/recipe/:id', Handle.getFullRecipe)
 
 app.post("/recipe", Handle.addRecipe);
 
