@@ -47,13 +47,19 @@ class longRecipe {
 }
 
 const getFavRecipe = async (req, res) => {
-  const filterQuery = {};
-  if (req.query.title) {
-    filterQuery.title = req.query.title;
-  }
+  try {
+    const filterQuery = {};
 
-  const recipes = await Recipe.find(filterQuery);
-  res.send(recipes);
+    if (req.query.title) {
+      filterQuery.title = req.query.title;
+    }
+    
+    const recipes = await Recipe.find(filterQuery);
+    res.status(200).send(recipes);
+
+  } catch (error) {
+    res.status(500).send("Error: " + error);
+  }
 };
 
 const addRecipe = async (req, res) => {
@@ -69,7 +75,7 @@ const addRecipe = async (req, res) => {
       price: 23,
     });
 
-    res.send(newRecipe);
+    res.status(201).send(newRecipe);
   } catch (error) {
     res.status(500).send("Error: " + error);
   }
@@ -119,7 +125,7 @@ const getFullRecipe = async (req, res) => {
 
     const newRecipe = new longRecipe(recipeData, email);
 
-    res.send(newRecipe);
+    res.status(200).send(newRecipe);
   } catch (error) {
     res.status(500).send("Error: " + error);
   }
@@ -138,7 +144,7 @@ const addFavRecipe = async (req, res) => {
 
     const favRecipe = await Recipe.create(newRecipe);
 
-    res.send("Added to favorites");
+    res.status(201).send("Added to favorites");
   } catch (error) {
     res.status(500).send("Error: " + error);
   }
