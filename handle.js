@@ -50,8 +50,8 @@ const getFavRecipe = async (req, res) => {
   try {
     const filterQuery = {};
 
-    if (req.query.title) {
-      filterQuery.title = req.query.title;
+    if (req.query.email) {
+      filterQuery.email = req.query.email;
     }
     
     const recipes = await Recipe.find(filterQuery);
