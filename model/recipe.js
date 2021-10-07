@@ -10,7 +10,7 @@ const recipeSchema = new mongoose.Schema({
   ingredients: { type: Array },
   price: { type: Number },
   tags: { type: String },
-  id: { type: Array },
+  id: { type: String },
 });
 
 const Recipe = mongoose.model("Recipe", recipeSchema);
