@@ -1,5 +1,6 @@
 "use strict";
 const Recipe = require("./model/recipe.js");
+const Ingredient = require("./model/ing.js");
 const axios = require("axios");
 
 class shortRecipe {
@@ -7,6 +8,14 @@ class shortRecipe {
     this.name = name;
     this.image = image;
     this.id = id;
+  }
+}
+
+class IngredientClass {
+  constructor(item, quantity, email) {
+    this.item = item;
+    this.quantity = quantity;
+    this.email = email;
   }
 }
 
@@ -151,6 +160,51 @@ const addFavRecipe = async (req, res) => {
   }
 };
 
+
+const getIngredients = async (req, res) => {
+  try {
+    const filterQuery = {};
+
+    if (req.query.email) {
+      filterQuery.email = req.query.email;
+    }
+
+    const ingredients = await Ingredient.find(filterQuery);
+    res.status(200).send(ingredients);
+  } catch (error) {
+    res.status(500).send("Error: " + error);
+  }
+};
+
+const deleteIngredient = async (req, res) => {
+  const id = req.params.id;
+  const email = req.query.email;
+
+  try {
+    await Ingredient.findOneAndDelete({ id: id, email: email });
+
+    res.status(204).send("Ingredient deleted");
+  } catch (error) {
+    res.status(404).send("Error, Cannot delete Ingredient with ID: " + id);
+  }
+};
+
+const addIngredient = async (req, res) => {
+  try {
+    const email = req.query.email;
+    const item = req.query.item;
+    const quantity = req.query.quantity;
+ 
+    const newIngredient = new IngredientClass(item, quantity, email)
+
+    const newIngredientAdded = await Ingredient.create(newIngredient);
+
+    res.status(201).send("Added to favorites");
+  } catch (error) {
+    res.status(500).send("Error: " + error);
+  }
+};
+
 module.exports = {
   getFavRecipe,
   addRecipe,
@@ -158,4 +212,7 @@ module.exports = {
   getShortList,
   getFullRecipe,
   addFavRecipe,
+  addIngredient,
+  deleteIngredient,
+  getIngredients,
 };
