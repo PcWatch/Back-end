@@ -21,11 +21,14 @@ app.get("/test", (req, res) => {
 app.get("/favorite", Handle.getFavRecipe);
 app.get('/recipe', Handle.getShortList);
 app.get('/recipe/:id', Handle.getFullRecipe)
+app.get("/ingredient", Handle.getIngredients);
 
 app.post("/recipe", Handle.addRecipe);
+app.post("/ingredient", Handle.addIngredient);
 app.post("/favorite/:id", Handle.addFavRecipe);
 
 app.delete("/recipe/:id", Handle.deleteRecipe);
+app.delete("/ingredient/:id", Handle.deleteIngredient);
 
 
 
